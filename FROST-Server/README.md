@@ -7,7 +7,7 @@ The main difference between the SensorThings API and the OGC Sensor Observation 
 ## SensorThings API design
 The following diagram is the UML Data Model for OGC SensorThings API and defining different entities and their properties, together with the relationship between entities.
 
-![SensorThings API UML Model](../doc/images/SensorThings_API_data_model.PNG)
+![SensorThings API UML Model](../doc/images/SensorThings_API_data_model.png)
 
 SensorThings API defines the following resources. As SensorThings is a RESTful web service, each entity can be CREATE, READ, UPDATE, and DELETE with standard HTTP verbs (POST, GET, PATCH, and DELETE):
 
@@ -24,7 +24,7 @@ SensorThings API defines the following resources. As SensorThings is a RESTful w
 ## SensorThings API Implementations
 As shown, there are three major implementations of the OGC SensorThings API.
 
-![SensorThings API UML Model](../doc/images/STA_Implementations.PNG)
+![SensorThings API UML Model](../doc/images/STA_Implementations.png)
 
 Name | License | Homepage | Short description
 ------------ | ------------- | ------------- | -------------
