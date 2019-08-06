@@ -4,37 +4,80 @@ Due to the complete support of the OGC SensorThings API and Open Source in natur
 ![SensorThings API UML Model](../doc/images/FROST.png)
 
 ## Installation
-The FROST-Server can be easily installed using Docker containers.
+The FROST-Server can be easily installed using Docker containers by using the below-mentioned steps. For more details about the installation steps, please visit https://github.com/FraunhoferIOSB/FROST-Server
 
-Step 1: Prepare docker-compose.yaml file
+**Step 1: Prepare docker-compose.yaml file**
 
-Step 2: Save docker-compose.yaml file in a folder.
+Compose is a tool for defining and running multi-container Docker applications. With Compose, we use a YAML file to configure the application’s services. Then, with a single command, we can create and start all the services from your configuration. An example docker-compose file also available [here](https://github.com/FraunhoferIOSB/FROST-Server/blob/master/docker-compose.yaml) looks as follows:
 
-Step 3: Go to the folder and run the command
-docker-compose up -d
+version: '2'
 
-It will deploy the required containers (Tomcat and PostGIS instances for the FROST Server)
+    services:
+    web:
+    image: fraunhoferiosb/frost-server:latest
+    environment:
+      - serviceRootUrl=http://localhost:8080/FROST-Server
+      - http_cors_enable=true
+      - http_cors_allowed.origins=*
+      - persistence_db_driver=org.postgresql.Driver
+      - persistence_db_url=jdbc:postgresql://database:5432/sensorthings
+      - persistence_db_username=sensorthings
+      - persistence_db_password=ChangeMe
+      - persistence_autoUpdateDatabase=true
+    ports:
+      - 8080:8080
+      - 1883:1883
+    depends_on:
+      - database
+
+    database:
+    image: mdillon/postgis:latest
+    environment:
+      - POSTGRES_DB=sensorthings
+      - POSTGRES_USER=sensorthings
+      - POSTGRES_PASSWORD=ChangeMe
+    volumes:
+      - postgis_volume:/var/lib/postgresql/data
+    volumes:
+    postgis_volume:
+
+The relevant fields can be defined and configured as above.
+
+**Step 2: Save docker-compose.yaml file.**
+
+Once docker-compose file is prepared, you can save it in a folder at your local machine/server.
+
+**Step 3: Run docker-compose.yaml file.**
+
+Please navigate to the folder where the YAML file is saved and run the following command:
+
+    docker-compose up -d
+
+It will deploy the required containers (Tomcat and PostGIS instances) for the FROST Server.
 
 Considering the serviceRootUrl defined in the configuration file is http://localhost:8080/FROST-Server, the base resource path can be tested as http://localhost:8080/FROST-Server/v1.0/
 
-It will return a JSON array of the available SensorThings resource endpoints as illustrated in the UML diagram.
+It will return a JSON array of the available SensorThings resource endpoints as illustrated in the [UML diagram](README.md).
 
 ## Setting up the FROST-Server
 Once the FROST-Server is up and running, the sensor description and observations can be inserted using HTTP operations. The OGC SensorThings API data model is designed in such a way that the static information (e.g. sensor device description, location, and other metadata) and dynamic information (e.g. timeseries observations) are modeled separately. It allows us to insert static information only once and to insert dynamic information in real-time manner.
 
 FROST-Server supports the following HTTP operations:
-* GET - to retrieve
-* POST
-* PATCH
-* DELETE
+* GET - to retrieve a resource
+* POST - to register a resource
+* PATCH - to update a resource
+* DELETE - to delete a resource
+
+These operations can be performed by cURL requests and the third-party software such as [POSTMAN](https://www.getpostman.com/) and [FME](https://www.safe.com/).
 
 ### Static Information
-Step 1: Thing
+**Thing**
+
 A Thing is an object of the physical world (physical Things) or the information world (virtual Things) that is capable of being identified and integrated into communication networks.
 
 Thing is a good starting point to start creating the SensorThings model structure. A Thing has Locations and one or more Datastreams to collect Observations. A minimal Thing can be created without a Location and Datastream and there are options to create a Things with a nested linked Location and Datastream.
 
-Example 1: POST a Thing
+Example 1: POST
 
     POST http://localhost:8080/FROST-Server/v1.0/Things
     Content-Type application/json
@@ -56,7 +99,7 @@ Example 1: POST a Thing
       }
     }
 
-Example 2: GET a Thing
+Example 2: GET
 
     GET http://localhost:8080/FROST-Server/v1.0/Things
 
@@ -76,7 +119,8 @@ Example 4: DELETE
 
     DELETE http://localhost:8080/FROST-Server/v1.0/Things(1)
 
-Step 2: ObservationProperty
+**ObservationProperty**
+
 An ObservedProperty specifies the phenomenon of an Observation. If the desired ObservedProperty is not registered already, it should be registered in the FROST-Server. In this scenario, if the Thing measures two ObservedProperties: Temperature and Humidity, they can be registered as follows:
 
 Temperature
@@ -107,7 +151,7 @@ The registered ObservedProperties can be accessed using the GET operations
 
 The PATCH and DELETE operations can be performed in the similar ways as described in the Things section.
 
-Step 3: Sensors
+**Sensors**
 
 A Sensor in SensorThings API is an instrument that observes a property or phenomenon with the goal of producing an estimate of the value of the property. If the desired Sensor is not registered already, it should be registered in the FROST-Server as follows:
 
@@ -125,8 +169,9 @@ Once the sensor is registered, it can be accessed as follows:
     GET http://localhost:8080/FROST-Server/v1.0/Sensors - array of all registered sensors
     GET http://localhost:8080/FROST-Server/v1.0/ObservedProperties(1) - DHT22
 
+The PATCH and DELETE operations can be performed in the similar ways as described in the Things section.
 
-Step 4: Datastreams
+**Datastreams**
 
 A Datastream groups a collection of Observations measuring the same ObservedProperty and produced by the same Sensor. In order to insert the Datastream, it is important to know the IDs of the Thing, the Sensor, and the ObservedProperty.
 
@@ -184,6 +229,7 @@ Once the sensor is registered, it can be accessed as follows:
     GET http://localhost:8080/FROST-Server/v1.0/Datastreams(1) - temperature from my_thing
     GET http://localhost:8080/FROST-Server/v1.0/Datastreams(2) - relative_humidity from my_thing
 
+The PATCH and DELETE operations can be performed in the similar ways as described in the Things section.
 
 ### Dynamic information
 Once the static information is registered at the FROST-Server with appropriate IDs, the dynamic information can be inserted corresponding to the relevant Datastream ID. For example, the temperature observations (time-value pairs) from the Iot Platform can be inserted to the FROST-Server against the respective Datastream ID.
@@ -206,7 +252,7 @@ For example, the timeseries of the temperature recordings of my_thing can be ins
     Content-Type application/json
     {
         "phenomenonTime": "2019-08-05T12:51:14+02:00",
-        "result": 22.6,
+        "result": 48,
         "Datastream": {
             "@iot.id": 2
         }
@@ -216,5 +262,3 @@ The Observations for each of the Datastream can be accessed as follows:
 
     GET http://localhost:8080/FROST-Server/v1.0/Datastreams(1)/Observations - temperature from my_thing
     GET http://localhost:8080/FROST-Server/v1.0/Datastreams(2)/Observations - relative_humidity from my_thing
-
-For more details, please visit https://github.com/FraunhoferIOSB/FROST-Server
