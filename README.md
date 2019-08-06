@@ -5,4 +5,10 @@ Sensor Web Enablement (SWE), an initiative from the Open Geospatial Consortium (
 
 This repository explains step-by-step process to work with various IoT platforms and to manage and visualize their observations according to the OGC Sensor Web Enablement (SWE) standards. It describes various Open Source applications which are used to set up such OGC Standards based IoT ecosystem. By following the steps below, a user can very easily install and set up the required applications on his/her personal desktop/laptop or a remote (virtual) machine.
 
-As a first example workflow, the repository demonstrates the ways to import real-time observations from The Things Network to the FROST Server
+As a first example workflow, the repository demonstrates the ways to import real-time observations from the devices registered at The Things Network (TTN) platform. TTN is a new initiative which focuses on a technology called LoRaWAN allowing for things to talk to the Internet without 3G or WiFi, so no WiFi codes and mobile subscriptions are required. It features low battery usage, long range and low bandwidth, which is ideal for the IoT devices. The real-time observations are imported to the FROST Server, which is an Open Source server implementation of the OGC SensorThings API. The import from TTN to the FROST Server is done by an Open Source software NodeRED using MQTT protocol. The sensor observations and locations are visualized on an Open Source Dashboard application Grafana. It allows performing sophisticated queries and visualizations using open and international standards. Similar workflows can also be created for other IoT platforms such as Thingspeak, OpenSensors, and CSV files.
+
+In order to install and set up the workflows, the following steps can be performed:
+Installation
+Setting up the FROST Server
+Setting up the NodeRED Workbenches
+Setting up the Grafana Dashboards
