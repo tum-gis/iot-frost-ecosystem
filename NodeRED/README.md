@@ -34,7 +34,7 @@ This Node-RED workflow is developed in order to
 * retrieve the properties *temperature* and *humidity*,
 * insert them to the FROST-Server.
 
-![SensorThings API UML Model](../doc/images/NodeREDWorkflow.png)
+![SensorThings API UML Model](../doc/images/NodeREDWorkflow.PNG)
 
 **Step 1: MQTT Input**
 

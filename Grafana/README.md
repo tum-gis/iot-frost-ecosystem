@@ -35,13 +35,13 @@ Other plugins can also be installed in the same ways.
 
 Once the required plugins are installed, the first step is to configure the Data Source. Please select the LinkSmart SensorThings Data Source and provide the base URL of the FROST Server (http://localhost:8080/FROST-Server/v1.0/).
 
-![SensorThings API UML Model](../doc/images/Grafana1.png)
+![SensorThings API UML Model](../doc/images/Grafana1.PNG)
 
 **Step 2 : Create Visualization Charts**
 
 Once the FROST Server is configured, the respective sensor device and observation properties can be visulized in different ways.
 
-![SensorThings API UML Model](../doc/images/Grafana2.png)
+![SensorThings API UML Model](../doc/images/Grafana2.PNG)
 
 ## Further Visualization options
 
