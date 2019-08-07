@@ -232,9 +232,9 @@ Once the sensor is registered, it can be accessed as follows:
 The PATCH and DELETE operations can be performed in the similar ways as described in the Things section.
 
 ### Dynamic information
-Once the static information is registered at the FROST-Server with appropriate IDs, the dynamic information can be inserted corresponding to the relevant Datastream ID. For example, the temperature observations (time-value pairs) from the Iot Platform can be inserted to the FROST-Server against the respective Datastream ID.
+Once the static information is registered at the FROST-Server with appropriate IDs, the dynamic information can be inserted corresponding to the relevant Datastream ID. For example, the temperature and humidity observations (time-value pairs) from the Iot Platform can be inserted to the FROST-Server against the respective Datastream ID.
 
-For example, the timeseries of the temperature recordings of my_thing can be inserted corresponding to the Datastream ID 1 as follows:
+The timeseries of the temperature recordings of my_thing can be inserted corresponding to the Datastream ID 1 as follows:
 
     POST http://localhost:8080/FROST-Server/v1.0/Observations
     Content-Type application/json
@@ -246,7 +246,7 @@ For example, the timeseries of the temperature recordings of my_thing can be ins
       }
     }
 
-For example, the timeseries of the temperature recordings of my_thing can be inserted corresponding to the Datastream ID 1 as follows:
+The timeseries of the humidity recordings of my_thing can be inserted corresponding to the Datastream ID 2 as follows:
 
     POST http://localhost:8080/FROST-Server/v1.0/Observations
     Content-Type application/json
