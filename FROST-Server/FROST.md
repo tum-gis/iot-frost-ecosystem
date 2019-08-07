@@ -1,10 +1,10 @@
 # FROST-Server
-Due to the complete support of the OGC SensorThings API and Open Source in nature, we prefer to install and work with the FROST Server. The FROST Server extends PostgreSQL Database for supporting SensorThings API Data Model and allows inserting and querying data using HTTP operations (POST, GET, PATCH, and DELETE). The FROST-Server also supports MQTT protocol, which is an asynchronous communication protocol. It allows users to subscribe to real-time datastreams.
+Due to the complete support of the OGC SensorThings API and Open Source in nature, we prefer to install and work with the FROST Server. The FROST Server uses a PostgreSQL Database to implement the SensorThings API Data Model and allows inserting and querying data using HTTP operations (POST, GET, PATCH, and DELETE). The FROST-Server also supports the MQTT protocol, which is an asynchronous (publish/subscribe) communication protocol. It allows users to subscribe to datastreams they are interested in. Applications then get notified whenever new observations become available.
 
 ![SensorThings API UML Model](../doc/images/FROST.png)
 
 ## Installation
-The FROST-Server can be easily installed using Docker containers by using the below-mentioned steps. For more details about the installation steps, please visit https://github.com/FraunhoferIOSB/FROST-Server
+The FROST-Server can easily be installed using Docker containers by using the below-mentioned steps. For more details about the installation steps, please visit https://github.com/FraunhoferIOSB/FROST-Server
 
 **Step 1: Prepare docker-compose.yaml file**
 
