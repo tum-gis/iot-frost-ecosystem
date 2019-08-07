@@ -265,4 +265,6 @@ The Observations for each of the Datastream can be accessed as follows:
 
 # Further querying options
 
-For more querying possibilities, please visit https://developers.sensorup.com/docs/#introduction 
+For more querying possibilities, please visit https://developers.sensorup.com/docs/#introduction
+
+# Next: [Installation and setting up the Node-RED](../NodeRED/README.md)

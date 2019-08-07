@@ -88,3 +88,6 @@ Humidity
 The last step is to create an *http request* function and POST the observation to the FROST Server. The URL of the Observation can be
 
     http://localhost:8080/FROST-Server/v1.0/Observations
+
+
+# Next: [Installation and setting up the Grafana Dashboards](../Grafana/README.md)
