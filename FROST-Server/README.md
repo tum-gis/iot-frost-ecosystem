@@ -32,4 +32,4 @@ SensorUp | Proprietary | https://sensorup.com/ | SensorUp Inc. provides a comple
 GOST Server | Open Source | https://www.gostserver.xyz/ | GOST is an OGC compliant implementation of the OGC SensorThings API written in Go Programmaing Language. However, as mentioned in their homepage, GOST is an alpha software and is not (yet) considered appropriate for customer use.  
 FROST-Server | Open Source | https://github.com/FraunhoferIOSB/FROST-Server | The FRaunhofer Opensource SensorThings (FROST) Server is a server implementation of the OGC SensorThings API. It is the first complete, open-source implementation of the OGC SensorThings API Part 1: Sensing. It now also includes preliminary actuation support.
 
-Next: Installation and working with the FROST-Server
+# Next: [Installation and setting up the FROST-Server](../FROST.md)

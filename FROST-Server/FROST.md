@@ -262,3 +262,7 @@ The Observations for each of the Datastream can be accessed as follows:
 
     GET http://localhost:8080/FROST-Server/v1.0/Datastreams(1)/Observations - temperature from my_thing
     GET http://localhost:8080/FROST-Server/v1.0/Datastreams(2)/Observations - relative_humidity from my_thing
+
+# Further querying options
+
+For more querying possibilities, please visit https://developers.sensorup.com/docs/#introduction 
