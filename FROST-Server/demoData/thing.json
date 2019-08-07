@@ -1,0 +1,14 @@
+{
+    "name": "my_thing",
+    "description": "description_of_the_thing",
+    "Locations": [
+      {
+        "name": "Munich, Germany",
+        "encodingType": "application/vnd.geo+json",
+        "description": "description_of_location",
+        "location": {
+          "coordinates":[11.49600700,48.11323500],
+          "type":"Point"}
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "temperature",
+  "unitOfMeasurement": {
+    "name": "Celsius",
+    "symbol": "C",
+    "definition": "https://en.wikipedia.org/wiki/Celsius"
+  },
+  "Thing": {
+    "@iot.id": 1
+  },
+  "description": "This is a datastream for the temperature property from my_thing",
+  "Sensor": {
+    "@iot.id": 1
+  },
+  "ObservedProperty": {
+	    "@iot.id": 1
+  },
+  "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement"
+}

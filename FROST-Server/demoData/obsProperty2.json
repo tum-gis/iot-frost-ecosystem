@@ -1,0 +1,5 @@
+{
+  "name": "relative_humidity",
+  "description": "https://en.wikipedia.org/wiki/Relative_humidity",
+  "definition": "Percent"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "humidity",
+  "unitOfMeasurement": {
+    "name": "Percent",
+    "symbol": "%",
+    "definition": "https://en.wikipedia.org/wiki/Percentage"
+  },
+  "Thing": {
+    "@iot.id": 1
+  },
+  "description": "This is a datastream for the relative_humidity property from my_thing",
+  "Sensor": {
+    "@iot.id": 1
+  },
+  "ObservedProperty": {
+	    "@iot.id": 2
+  },
+  "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement"
+}

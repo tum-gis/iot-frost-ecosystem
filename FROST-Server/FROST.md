@@ -68,7 +68,7 @@ FROST-Server supports the following HTTP operations:
 * PATCH - to update a resource
 * DELETE - to delete a resource
 
-These operations can be performed by cURL requests and the third-party software such as [POSTMAN](https://www.getpostman.com/) and [FME](https://www.safe.com/).
+These operations can be performed by cURL requests for Mac/Linux and the third-party software such as [POSTMAN](https://www.getpostman.com/) and [FME](https://www.safe.com/) for Windows.
 
 ### Static Information
 **Thing**
@@ -78,6 +78,8 @@ A Thing is an object of the physical world (physical Things) or the information 
 Thing is a good starting point to start creating the SensorThings model structure. A Thing has Locations and one or more Datastreams to collect Observations. A minimal Thing can be created without a Location and Datastream and there are options to create a Things with a nested linked Location and Datastream.
 
 Example 1: POST
+
+POSTMAN
 
     POST http://localhost:8080/FROST-Server/v1.0/Things
     Content-Type application/json
@@ -98,6 +100,9 @@ Example 1: POST
         ]
       }
 
+cURL
+
+    curl -X POST -H "Content-Type: application/json" -d @demoData/thing.json http://localhost:8080/FROST-Server/v1.0/Things
 
 Example 2: GET
 
@@ -125,6 +130,8 @@ An ObservedProperty specifies the phenomenon of an Observation. If the desired O
 
 Temperature
 
+POSTMAN
+
     POST http://localhost:8080/FROST-Server/v1.0/ObservedProperties
     Content-Type application/json
     {
@@ -133,7 +140,13 @@ Temperature
       "definition": "Celsius"
     }
 
+cURL
+
+    curl -X POST -H "Content-Type: application/json" -d @demoData/obsProperty1.json http://localhost:8080/FROST-Server/v1.0/ObservedProperties
+
 Relative Humidity
+
+POSTMAN
 
     POST http://localhost:8080/FROST-Server/v1.0/ObservedProperties
     Content-Type application/json
@@ -143,7 +156,13 @@ Relative Humidity
       "definition": "Percent"
     }
 
+cURL
+
+    curl -X POST -H "Content-Type: application/json" -d @demoData/obsProperty2.json http://localhost:8080/FROST-Server/v1.0/ObservedProperties
+
 Battery Voltage
+
+POSTMAN
 
     POST http://localhost:8080/FROST-Server/v1.0/ObservedProperties
     Content-Type application/json
@@ -152,6 +171,10 @@ Battery Voltage
       "description": "https://en.wikipedia.org/wiki/Voltage",
       "definition": "Voltage"
     }
+
+cURL
+
+    curl -X POST -H "Content-Type: application/json" -d @demoData/obsProperty3.json http://localhost:8080/FROST-Server/v1.0/ObservedProperties
 
 The registered ObservedProperties can be accessed using the GET operations
 
@@ -166,6 +189,8 @@ The PATCH and DELETE operations can be performed in the similar ways as describe
 
 A Sensor in SensorThings API is an instrument that observes a property or phenomenon with the goal of producing an estimate of the value of the property. If the desired Sensor is not registered already, it should be registered in the FROST-Server as follows:
 
+POSTMAN
+
     POST http://localhost:8080/FROST-Server/v1.0/Sensors
     Content-Type application/json
     {
@@ -174,6 +199,10 @@ A Sensor in SensorThings API is an instrument that observes a property or phenom
       "metadata": "http://wiki.seeedstudio.com/Grove-Temperature_and_Humidity_Sensor_Pro/",
       "description": "http://wiki.seeedstudio.com/Grove-Temperature_and_Humidity_Sensor_Pro/"
     }
+
+cURL
+
+    curl -X POST -H "Content-Type: application/json" -d @demoData/sensor.json http://localhost:8080/FROST-Server/v1.0/Sensors
 
 Once the sensor is registered, it can be accessed as follows:
 
@@ -187,6 +216,8 @@ The PATCH and DELETE operations can be performed in the similar ways as describe
 A Datastream groups a collection of Observations measuring the same ObservedProperty and produced by the same Sensor. In order to insert the Datastream, it is important to know the IDs of the Thing, the Sensor, and the ObservedProperty.
 
 For example, the Datastream for the temperature property (ObservedProperty ID:1) being produced by the DHT22 sensor (Sensor ID:1) in the my_thing (Thing ID:1) can be registered as:
+
+POSTMAN
 
     POST http://localhost:8080/FROST-Server/v1.0/Datastreams
     Content-Type application/json
@@ -210,7 +241,13 @@ For example, the Datastream for the temperature property (ObservedProperty ID:1)
       "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement"
     }
 
+cURL
+
+    curl -X POST -H "Content-Type: application/json" -d @demoData/datastream1.json http://localhost:8080/FROST-Server/v1.0/Datastreams
+
 Similarly, the Datastream for the relative_humidity property (ObservedProperty ID:2) being produced by the DHT22 sensor (Sensor ID:1) in the my_thing (Thing ID:1) can be registered as:
+
+POSTMAN
 
     POST http://localhost:8080/FROST-Server/v1.0/Datastreams
     Content-Type application/json
@@ -234,7 +271,13 @@ Similarly, the Datastream for the relative_humidity property (ObservedProperty I
       "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement"
     }
 
+cURL
+
+    curl -X POST -H "Content-Type: application/json" -d @demoData/datastream2.json http://localhost:8080/FROST-Server/v1.0/Datastreams
+
 And, the Datastream for the battery_voltage property (ObservedProperty ID:3) being produced by the DHT22 sensor (Sensor ID:1) in the my_thing (Thing ID:1) can be registered as:
+
+POSTMAN
 
         POST http://localhost:8080/FROST-Server/v1.0/Datastreams
         Content-Type application/json
@@ -257,6 +300,10 @@ And, the Datastream for the battery_voltage property (ObservedProperty ID:3) bei
           },
           "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement"
         }
+
+cURL
+
+    curl -X POST -H "Content-Type: application/json" -d @demoData/datastream3.json http://localhost:8080/FROST-Server/v1.0/Datastreams
 
 Once the sensor is registered, it can be accessed as follows:
 

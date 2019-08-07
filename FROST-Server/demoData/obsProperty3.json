@@ -1,0 +1,5 @@
+{
+  "name": "battery_voltage",
+  "description": "https://en.wikipedia.org/wiki/Voltage",
+  "definition": "Voltage"
+}
