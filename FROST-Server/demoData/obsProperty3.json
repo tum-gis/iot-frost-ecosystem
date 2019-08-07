@@ -1,5 +1,5 @@
-{
+curl -XPOST -H "Content-Type: application/json" -d '{
   "name": "battery_voltage",
   "description": "https://en.wikipedia.org/wiki/Voltage",
   "definition": "Voltage"
-}
+}' "http://localhost:8080/FROST-Server/v1.0/ObservedProperties"

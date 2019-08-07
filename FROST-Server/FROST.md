@@ -102,7 +102,20 @@ POSTMAN
 
 cURL
 
-    curl -X POST -H "Content-Type: application/json" -d @demoData/thing.json http://localhost:8080/FROST-Server/v1.0/Things
+    curl -XPOST -H "Content-Type: application/json" -d '{
+    "name": "my_thing",
+    "description": "description_of_the_thing",
+    "Locations": [
+      {
+        "name": "Munich, Germany",
+        "encodingType": "application/vnd.geo+json",
+        "description": "description_of_location",
+        "location": {
+          "coordinates":[11.49600700,48.11323500],
+          "type":"Point"}
+        }
+    ]
+    }' "http://localhost:8080/FROST-Server/v1.0/Things"
 
 Example 2: GET
 
@@ -114,16 +127,29 @@ It will list all the registered Things in the FROST-Server. If the registered Th
 
 Example 3: PATCH
 
+POSTMAN
+
     PATCH http://localhost:8080/FROST-Server/v1.0/Things(1)
     Content-Type application/json
     {
       "description": "updated_description_of_the_thing"
     }
 
+cURL
+
+      curl -X PATCH -H "Content-Type: application/json" -d '{
+      "description": "updated_description_of_the_thing"
+      }' "http://localhost:8080/FROST-Server/v1.0/Things(1)"
+
 Example 4: DELETE
+
+POSTMAN
 
     DELETE http://localhost:8080/FROST-Server/v1.0/Things(1)
 
+cURL 
+
+    curl -X DELETE -H "Content-Type: application/json" -H -d '' "http://localhost:8080/FROST-Server/v1.0/Things(1)"
 **ObservationProperty**
 
 An ObservedProperty specifies the phenomenon of an Observation. If the desired ObservedProperty is not registered already, it should be registered in the FROST-Server. In this scenario, if the Thing measures two ObservedProperties: Temperature and Humidity, they can be registered as follows:
@@ -142,7 +168,11 @@ POSTMAN
 
 cURL
 
-    curl -X POST -H "Content-Type: application/json" -d @demoData/obsProperty1.json http://localhost:8080/FROST-Server/v1.0/ObservedProperties
+    curl -XPOST -H "Content-Type: application/json" -d '{
+    "name": "temperature",
+    "description": "https://en.wikipedia.org/wiki/Temperature",
+    "definition": "Celsius"
+    }' "http://localhost:8080/FROST-Server/v1.0/ObservedProperties"
 
 Relative Humidity
 
@@ -158,7 +188,11 @@ POSTMAN
 
 cURL
 
-    curl -X POST -H "Content-Type: application/json" -d @demoData/obsProperty2.json http://localhost:8080/FROST-Server/v1.0/ObservedProperties
+    curl -XPOST -H "Content-Type: application/json" -d '{
+    "name": "relative_humidity",
+    "description": "https://en.wikipedia.org/wiki/Relative_humidity",
+    "definition": "Percent"
+    }' "http://localhost:8080/FROST-Server/v1.0/ObservedProperties"
 
 Battery Voltage
 
@@ -174,7 +208,11 @@ POSTMAN
 
 cURL
 
-    curl -X POST -H "Content-Type: application/json" -d @demoData/obsProperty3.json http://localhost:8080/FROST-Server/v1.0/ObservedProperties
+      curl -XPOST -H "Content-Type: application/json" -d '{
+      "name": "battery_voltage",
+      "description": "https://en.wikipedia.org/wiki/Voltage",
+      "definition": "Voltage"
+    }' "http://localhost:8080/FROST-Server/v1.0/ObservedProperties"
 
 The registered ObservedProperties can be accessed using the GET operations
 
@@ -202,7 +240,13 @@ POSTMAN
 
 cURL
 
-    curl -X POST -H "Content-Type: application/json" -d @demoData/sensor.json http://localhost:8080/FROST-Server/v1.0/Sensors
+    curl -XPOST -H "Content-Type: application/json" -d '{
+    "name":"DHT22",
+    "encodingType": "application/pdf",
+    "metadata": "http://wiki.seeedstudio.com/Grove-Temperature_and_Humidity_Sensor_Pro/",
+    "description": "http://wiki.seeedstudio.com/Grove-Temperature_and_Humidity_Sensor_Pro/"
+    }' "http://localhost:8080/FROST-Server/v1.0/Sensors"
+
 
 Once the sensor is registered, it can be accessed as follows:
 
@@ -243,7 +287,25 @@ POSTMAN
 
 cURL
 
-    curl -X POST -H "Content-Type: application/json" -d @demoData/datastream1.json http://localhost:8080/FROST-Server/v1.0/Datastreams
+    curl -XPOST -H "Content-Type: application/json" -d '{
+    "name": "temperature",
+    "unitOfMeasurement": {
+    "name": "Celsius",
+    "symbol": "C",
+    "definition": "https://en.wikipedia.org/wiki/Celsius"
+    },
+    "Thing": {
+    "@iot.id": 1
+    },
+    "description": "This is a datastream for the temperature property from my_thing",
+    "Sensor": {
+    "@iot.id": 1
+    },
+    "ObservedProperty": {
+      "@iot.id": 1
+    },
+    "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement"
+    }' "http://localhost:8080/FROST-Server/v1.0/Datastreams"
 
 Similarly, the Datastream for the relative_humidity property (ObservedProperty ID:2) being produced by the DHT22 sensor (Sensor ID:1) in the my_thing (Thing ID:1) can be registered as:
 
@@ -273,7 +335,26 @@ POSTMAN
 
 cURL
 
-    curl -X POST -H "Content-Type: application/json" -d @demoData/datastream2.json http://localhost:8080/FROST-Server/v1.0/Datastreams
+    curl -XPOST -H "Content-Type: application/json" -d '{
+    "name": "humidity",
+    "unitOfMeasurement": {
+    "name": "Percent",
+    "symbol": "%",
+    "definition": "https://en.wikipedia.org/wiki/Percentage"
+    },
+    "Thing": {
+    "@iot.id": 1
+    },
+    "description": "This is a datastream for the relative_humidity property from my_thing",
+    "Sensor": {
+    "@iot.id": 1
+    },
+    "ObservedProperty": {
+      "@iot.id": 2
+    },
+    "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement"
+    }' "http://localhost:8080/FROST-Server/v1.0/Datastreams"
+
 
 And, the Datastream for the battery_voltage property (ObservedProperty ID:3) being produced by the DHT22 sensor (Sensor ID:1) in the my_thing (Thing ID:1) can be registered as:
 
@@ -303,7 +384,25 @@ POSTMAN
 
 cURL
 
-    curl -X POST -H "Content-Type: application/json" -d @demoData/datastream3.json http://localhost:8080/FROST-Server/v1.0/Datastreams
+    curl -XPOST -H "Content-Type: application/json" -d '{
+      "name": "battery_voltage",
+      "unitOfMeasurement": {
+        "name": "Volts",
+        "symbol": "V",
+        "definition": "https://en.wikipedia.org/wiki/Voltage"
+      },
+      "Thing": {
+        "@iot.id": 1
+      },
+      "description": "This is a datastream for the battery_voltage property from my_thing",
+      "Sensor": {
+        "@iot.id": 1
+      },
+      "ObservedProperty": {
+          "@iot.id": 3
+      },
+      "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement"
+    }' "http://localhost:8080/FROST-Server/v1.0/Datastreams"
 
 Once the sensor is registered, it can be accessed as follows:
 

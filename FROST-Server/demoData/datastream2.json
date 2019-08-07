@@ -1,4 +1,4 @@
-{
+curl -XPOST -H "Content-Type: application/json" -d '{
   "name": "humidity",
   "unitOfMeasurement": {
     "name": "Percent",
@@ -16,4 +16,4 @@
 	    "@iot.id": 2
   },
   "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement"
-}
+}' "http://localhost:8080/FROST-Server/v1.0/Datastreams"

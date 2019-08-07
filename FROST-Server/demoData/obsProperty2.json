@@ -1,5 +1,5 @@
-{
+curl -XPOST -H "Content-Type: application/json" -d '{
   "name": "relative_humidity",
   "description": "https://en.wikipedia.org/wiki/Relative_humidity",
   "definition": "Percent"
-}
+}' "http://localhost:8080/FROST-Server/v1.0/ObservedProperties"

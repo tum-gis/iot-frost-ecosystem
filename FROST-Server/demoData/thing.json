@@ -1,4 +1,4 @@
-{
+curl -XPOST -H "Content-Type: application/json" -d '{
     "name": "my_thing",
     "description": "description_of_the_thing",
     "Locations": [
@@ -11,4 +11,4 @@
           "type":"Point"}
         }
     ]
-}
+}' "http://localhost:8080/FROST-Server/v1.0/Things"

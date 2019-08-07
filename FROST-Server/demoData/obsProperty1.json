@@ -1,5 +1,5 @@
-{
+curl -XPOST -H "Content-Type: application/json" -d '{
   "name": "temperature",
   "description": "https://en.wikipedia.org/wiki/Temperature",
   "definition": "Celsius"
-}
+}' "http://localhost:8080/FROST-Server/v1.0/ObservedProperties"
