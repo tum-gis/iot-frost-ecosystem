@@ -27,6 +27,8 @@ In this repository, we show an example of how the observations from a sensor dev
 
 This Node-RED workflow connects to a sensor device registered at The Things Network. The name of the device is *tumgis-lopy4-node1* with an attached DHT22 temperature/humidity sensor (more details, [here](https://wiki.tum.de/display/geosensorweb/LoRaWAN+Node+-+Pycom+LoPy4)). The frequency of the observations is every 5 minutes.
 
+![SensorThings API UML Model](../doc/images/TTN.PNG)
+
 ### Node-RED Workflow
 
 This Node-RED workflow is developed in order to
