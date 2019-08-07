@@ -2,7 +2,7 @@
 
 Grafana is an Open Source application which is being widely used for time series analysis and visualizations. It allows us to query, visualize, alert on and understand time series stored in heterogeneous data sources. Users can very easily create, explore and share different kinds of dashboards.
 
-In this repository, Grafana Dashboards are used to link with the running FROST Server. Grafana already supports a plug-in called *LinkSmart SensorThings Data Source Plugin*. By enabling this plugin, different sensor devices and their real-time observations can very easily be visualized using Grafana Dashboards.
+In this repository, Grafana Dashboards are used to link with the running FROST Server. Grafana already supports a plug-in called *LinkSmart SensorThings Data Source Plugin*. The plugin facilitates direct connections to OGC compliant SensorThings API services. By enabling this plugin, different sensor devices and their real-time observations accessible over OGC SensorThings API can very easily be visualized using Grafana Dashboards.
 
 ## Installation
 
