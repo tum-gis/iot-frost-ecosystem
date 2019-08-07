@@ -82,7 +82,7 @@ Example 1: POST
     POST http://localhost:8080/FROST-Server/v1.0/Things
     Content-Type application/json
 
-    {
+
       {
         "name": "my_thing",
         "description": "description_of_the_thing",
@@ -97,7 +97,7 @@ Example 1: POST
             }
         ]
       }
-    }
+
 
 Example 2: GET
 
@@ -128,9 +128,9 @@ Temperature
     POST http://localhost:8080/FROST-Server/v1.0/ObservedProperties
     Content-Type application/json
     {
-      "name": "relative_humidity",
-      "description": "https://en.wikipedia.org/wiki/Relative_humidity",
-      "definition": "Percent"
+      "name": "temperature",
+      "description": "https://en.wikipedia.org/wiki/Temperature",
+      "definition": "Celsius"
     }
 
 Relative Humidity
@@ -143,11 +143,22 @@ Relative Humidity
       "definition": "Percent"
     }
 
+Relative Humidity
+
+    POST http://localhost:8080/FROST-Server/v1.0/ObservedProperties
+    Content-Type application/json
+    {
+      "name": "battery_voltage",
+      "description": "https://en.wikipedia.org/wiki/Voltage",
+      "definition": "Voltage"
+    }
+
 The registered ObservedProperties can be accessed using the GET operations
 
     GET http://localhost:8080/FROST-Server/v1.0/ObservedProperties - array of all registered ObservedProperties
     GET http://localhost:8080/FROST-Server/v1.0/ObservedProperties(1) - Temperature
     GET http://localhost:8080/FROST-Server/v1.0/ObservedProperties(2) - Relative Humidity
+    GET http://localhost:8080/FROST-Server/v1.0/ObservedProperties(3) - Battery Voltage
 
 The PATCH and DELETE operations can be performed in the similar ways as described in the Things section.
 
@@ -204,11 +215,11 @@ Similarly, the Datastream for the relative_humidity property (ObservedProperty I
     POST http://localhost:8080/FROST-Server/v1.0/Datastreams
     Content-Type application/json
     {
-      "name": "temperature",
+      "name": "humidity",
       "unitOfMeasurement": {
-        "name": "Celsius",
-        "symbol": "C",
-        "definition": "https://en.wikipedia.org/wiki/Celsius"
+        "name": "Percent",
+        "symbol": "%",
+        "definition": "https://en.wikipedia.org/wiki/Percentage"
       },
       "Thing": {
         "@iot.id": 1
@@ -223,16 +234,41 @@ Similarly, the Datastream for the relative_humidity property (ObservedProperty I
       "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement"
     }
 
+And, the Datastream for the battery_voltage property (ObservedProperty ID:3) being produced by the DHT22 sensor (Sensor ID:1) in the my_thing (Thing ID:1) can be registered as:
+
+        POST http://localhost:8080/FROST-Server/v1.0/Datastreams
+        Content-Type application/json
+        {
+          "name": "battery_voltage",
+          "unitOfMeasurement": {
+            "name": "Volts",
+            "symbol": "V",
+            "definition": "https://en.wikipedia.org/wiki/Voltage"
+          },
+          "Thing": {
+            "@iot.id": 1
+          },
+          "description": "This is a datastream for the relative_humidity property from my_thing",
+          "Sensor": {
+            "@iot.id": 1
+          },
+          "ObservedProperty": {
+        	    "@iot.id": 3
+          },
+          "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement"
+        }
+
 Once the sensor is registered, it can be accessed as follows:
 
     GET http://localhost:8080/FROST-Server/v1.0/Datastreams - array of all registered Datastreams
     GET http://localhost:8080/FROST-Server/v1.0/Datastreams(1) - temperature from my_thing
     GET http://localhost:8080/FROST-Server/v1.0/Datastreams(2) - relative_humidity from my_thing
+    GET http://localhost:8080/FROST-Server/v1.0/Datastreams(3) - battery_voltage from my_thing
 
 The PATCH and DELETE operations can be performed in the similar ways as described in the Things section.
 
 ### Dynamic information
-Once the static information is registered at the FROST-Server with appropriate IDs, the dynamic information can be inserted corresponding to the relevant Datastream ID. For example, the temperature and humidity observations (time-value pairs) from the Iot Platform can be inserted to the FROST-Server against the respective Datastream ID.
+Once the static information is registered at the FROST-Server with appropriate IDs, the dynamic information can be inserted corresponding to the relevant Datastream ID. For example, the temperature and humidity observations (time-value pairs) from the Iot Platform can be inserted to the FROST-Server against the respective Datastream ID. For this purpose, automated workbenches such as NodeRED can be used.
 
 The timeseries of the temperature recordings of my_thing can be inserted corresponding to the Datastream ID 1 as follows:
 
@@ -258,10 +294,23 @@ The timeseries of the humidity recordings of my_thing can be inserted correspond
         }
       }
 
+The timeseries of the battery_voltage recordings of my_thing can be inserted corresponding to the Datastream ID 3 as follows:
+
+    POST http://localhost:8080/FROST-Server/v1.0/Observations
+    Content-Type application/json
+    {
+        "phenomenonTime": "2019-08-05T12:51:14+02:00",
+        "result": 30,
+        "Datastream": {
+              "@iot.id": 2
+        }
+    }
+
 The Observations for each of the Datastream can be accessed as follows:
 
     GET http://localhost:8080/FROST-Server/v1.0/Datastreams(1)/Observations - temperature from my_thing
     GET http://localhost:8080/FROST-Server/v1.0/Datastreams(2)/Observations - relative_humidity from my_thing
+    GET http://localhost:8080/FROST-Server/v1.0/Datastreams(3)/Observations - battery_voltage from my_thing
 
 # Further querying options
 
