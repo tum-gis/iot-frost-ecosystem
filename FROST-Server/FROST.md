@@ -143,7 +143,7 @@ Relative Humidity
       "definition": "Percent"
     }
 
-Relative Humidity
+Battery Voltage
 
     POST http://localhost:8080/FROST-Server/v1.0/ObservedProperties
     Content-Type application/json
